@@ -1,0 +1,27 @@
+plugins {
+    id 'java-library'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'main.ChangePackParser'
+    }
+    from {
+        configurations.compileClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
